@@ -1,0 +1,680 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper,vmargin={20mm,20mm},hmargin={30mm,25mm}]{geometry}
+
+\usepackage{graphicx}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+
+\begin{document}
+
+
+\parindent 0em%
+\parskip 0.5em%
+\noindent\rule{\textwidth}{1pt}%
+\begin{center}%
+\textbf{Computergrafik SoSe 2012} \\
+\textbf{Übung 1}
+\end{center}%
+{Max Michels, Sebastian Kürten}\\%
+\noindent\rule{\textwidth}{1pt}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aufgabe 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Aufgabe 1}
+\subsection{Teil a}
+\subsubsection{Aufgabenstellung}
+Bestimmen Sie eine Rotation
+$$R :
+\begin{pmatrix}
+ x \\ y \\ 1
+\end{pmatrix}
+\mapsto
+\begin{pmatrix}
+ m_{11} & m_{12} & m_{13} \\
+ m_{21} & m_{22} & m_{23} \\
+ 0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+ x \\ y \\ 1
+\end{pmatrix},
+$$
+die die zwei Punkte (mit kartesischen Koordinaten) (0,0) und (3,4)
+auf die Punkte (2,1) und (2,6) abbildet.
+
+\subsubsection{Lösung}
+
+Es muss gelten: 
+$
+R \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 2 \\ 1 \\ 1 \end{pmatrix}
+$
+und
+$
+R \begin{pmatrix} 3 \\ 4 \\ 1 \end{pmatrix} = \begin{pmatrix} 2 \\ 6 \\ 1 \end{pmatrix}
+$
+
+weil die Rotationsmatrix diese Gestalt hat:
+
+\begin{equation}
+\label{a1.0}
+A = \begin{pmatrix}
+ cos(\alpha) & -sin(\alpha) & m_{13} \\
+ sin(\alpha) & cos(\alpha) & m_{23} \\
+ 0 & 0 & 1
+\end{pmatrix}
+\end{equation}
+
+gilt auch:
+\begin{equation}
+\label{a1.1}
+m_{11} = cos(\alpha),
+m_{12} = -sin(\alpha),
+m_{21} = sin(\alpha),
+m_{22} = cos(\alpha) 
+\end{equation}
+
+Darus ergibt sich:
+\begin{equation}
+\label{a1.2}
+m_{13} = 2
+\end{equation}
+
+\begin{equation}
+\label{a1.3}
+m_{23} = 1
+\end{equation}
+
+\begin{equation}
+\label{a1.4}
+3 m_{11} + 4 m_{12} + m_{13} = 2
+\Leftrightarrow 
+3 m_{11} + 4 m_{12} = 0
+\end{equation}
+
+\begin{equation}
+\label{a1.5}
+3 m_{21} + 4 m_{22} + m_{23} = 6 
+\Leftrightarrow 
+3 m_{21} + 4 m_{22} = 5
+\end{equation}
+
+Aus (\ref{a1.1}) und (\ref{a1.4}) bzw. (\ref{a1.1}) und (\ref{a1.5}) folgen:
+
+\begin{equation}
+\label{a1.6}
+3 cos(\alpha) - 4 sin(\alpha) = 0
+\end{equation}
+
+\begin{equation}
+\label{a1.7}
+3 sin(\alpha) + 4 cos(\alpha) = 5
+\end{equation}
+
+Aus (\ref{a1.6}) und (\ref{a1.7}) lässt sich ableiten:
+
+\begin{equation}
+\label{a1.8}
+cos(\alpha) = \frac{4}{5}
+\end{equation}
+
+\begin{equation}
+\label{a1.9}
+sin(\alpha) = \frac{3}{5}
+\end{equation}
+
+Damit ist die Rotationsmatrix:
+
+$$A = \begin{pmatrix}
+ \frac{4}{5} & -\frac{3}{5} & 2 \\[6pt]
+ \frac{3}{5} & \frac{4}{5} & 1 \\[6pt]
+ 0 & 0 & 1
+\end{pmatrix}$$
+
+\subsection{Teil b}
+\subsubsection{Aufgabenstellung}
+
+Bestimmen Sie den Punkt $z$ der Ebene mit $z = R(z)$ (den Fixpunkt;
+den Punkt um den gedreht wird).
+
+\subsubsection{Lösung}
+
+Der Fixpunkt bleibt durch die Rotation unverändert, es gilt:
+$ A \vec{x} = \vec{x}$, d.h. 
+
+\begin{equation}
+\begin{pmatrix}
+ \frac{4}{5} & -\frac{3}{5} & 2 \\[6pt]
+ \frac{3}{5} & \frac{4}{5} & 1 \\[6pt]
+ 0 & 0 & 1
+\end{pmatrix} 
+\begin{pmatrix} x \\ y \\ w \end{pmatrix} 
+= \begin{pmatrix} x \\ y \\ w \end{pmatrix} 
+\end{equation}
+
+Daraus folgt:
+
+\begin{equation}
+\frac{4}{5} x - \frac{3}{5} y + 2 w = x
+\Leftrightarrow
+- \frac{1}{5} x - \frac{3}{5} y + 2 w = 0
+\end{equation}
+
+\begin{equation}
+\frac{3}{5} x + \frac{4}{5} y + w = y
+\Leftrightarrow
+\frac{3}{5} x - \frac{1}{5} y + w = 0
+\end{equation}
+
+Wenn wir $w=1$ setzen, folgt:
+
+\begin{equation}
+x = - \frac{1}{2} 
+\end{equation}
+
+\begin{equation}
+y = \frac{7}{2} 
+\end{equation}
+
+Daher ist $ z = \begin{pmatrix} -\frac{1}{2} & \frac{7}{2} & 1 \end{pmatrix}^T $
+
+\subsection{Teil c}
+\subsubsection{Aufgabenstellung}
+
+Um welchen Winkel wird die Ebene dabei gedreht?
+
+\subsubsection{Lösung}
+
+Aus (\ref{a1.0}) bzw. (\ref{a1.8}) ergibt sich:
+$ cos(\alpha) = \frac{4}{5} \Rightarrow \alpha = arccos(\frac{4}{5})
+\approx 0.644 \approx 36.9° $
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aufgabe 3
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{section}{2}
+\section{Aufgabe 3}
+\subsection{Aufgabenstellung}
+Schreiben Sie die Transformationsmatrix M, die der Nacheinanderausführung der folgenden Transformationen (in dieser Reihenfolge) entspricht: [...]
+
+\subsection{Lösung}
+
+\subsubsection{Teil a}
+
+Eine Translation um den Vektor (2,1).
+
+\begin{equation}
+\label{a3.m1}
+M_1 = \begin{pmatrix}
+ 1 & 0 & 2 \\
+ 0 & 1 & 1 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\end{equation}
+
+\subsubsection{Teil b}
+
+Eine Rotation um den Ursprung um 90° nach links.
+
+\begin{equation}
+\label{a3.m2}
+M_2 = \begin{pmatrix}
+ 0 & -1 & 0 \\
+ 1 & 0 & 0 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\end{equation}
+
+\subsubsection{Teil c}
+
+Eine Streckung der x-Achse um den Faktor 2. (Die y-Achse bleibt unverändert.)
+
+\begin{equation}
+\label{a3.m3}
+M_3 = \begin{pmatrix}
+ 2 & 0 & 0 \\
+ 0 & 1 & 0 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\end{equation}
+
+\subsubsection{Teil d}
+
+Eine Rotation um den Ursprung um 90° nach links.
+
+\begin{equation}
+\label{a3.m4}
+M_4 = M_1
+\end{equation}
+
+\subsubsection{Gesamtergebnis}
+
+Hintereinanderausführung aller vier Operationen:
+
+\begin{equation}
+\label{a3.1}
+\vec{x} \mapsto M_4 M_3 M_2 M_1 \vec{x}
+\end{equation}
+
+\begin{equation}
+\label{a3.2}
+\vec{x} \mapsto M \vec{x}
+\end{equation}
+
+wobei $M = M_4 M_3 M_2 M_1$
+
+\begin{equation}
+M = M_4 M_3 M_2 M_1
+\end{equation}
+
+\begin{equation}
+M = M_4 M_3 
+\begin{pmatrix}
+ 0 & -1 & 0 \\
+ 1 & 0 & 0 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+ 1 & 0 & 2 \\
+ 0 & 1 & 1 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+M = M_4 M_3 
+\begin{pmatrix}
+ 0 & -1 & -1 \\
+ 1 & 0 & 2 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+M = M_4 
+\begin{pmatrix}
+ 2 & 0 & 0 \\
+ 0 & 1 & 0 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+ 0 & -1 & -1 \\
+ 1 & 0 & 2 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+M = M_4 
+\begin{pmatrix}
+ 0 & -2 & -2 \\
+ 1 & 0 & 2 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+M = 
+\begin{pmatrix}
+ 0 & -1 & 0 \\
+ 1 & 0 & 0 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+ 0 & -2 & -2 \\
+ 1 & 0 & 2 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+M = 
+\begin{pmatrix}
+ -1 & 0 & -2 \\
+ 0 & -2 & -2 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aufgabe 4
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Aufgabe 4}
+\subsection{Teil a}
+$$A :
+\begin{pmatrix}
+ x \\ y
+\end{pmatrix}
+\mapsto
+\begin{pmatrix}
+-1 & 0 \\
+ 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+ x \\ y
+\end{pmatrix},
+$$
+
+Die Abbildung beschreibt die Spiegelung an der y-Achse.
+
+\subsection{Teil b}
+
+Sei R eine Rotation um 90° nach links um den Ursprung.
+Bestimmen Sie die Matrix M die der folgenden Verknüpfung der drei Abbildungen entspricht:
+$$ R, A, R^{-1}.$$
+
+Die Matrix für die Rotation um 90° ist folgende:
+
+$$ \begin{pmatrix} cos(90°) & -sin(90°) \\ sin(90°) & cos(90°) \end{pmatrix} 
+= \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} $$
+
+Die Matrix für die Rotation um -90° ist folgende:
+
+$$ \begin{pmatrix} cos(-90°) & -sin(-90°) \\ sin(-90°) & cos(-90°) \end{pmatrix} 
+= \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} $$
+
+$M$ ist die Hintereinanderausführung von $M_R, M_A, M_{R^{-1}}$, also:
+
+$$ M = M_{R^{-1}} M_A M_R $$
+
+$$ M = 
+\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}
+\begin{pmatrix} -1 & 0 \\ 0 & 1 \end{pmatrix}
+\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}
+$$
+
+$$ M = 
+\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}
+\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
+$$
+
+$$ M = 
+\begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}
+$$
+
+\subsection{Teil c}
+
+Die Fixpunkte sind die Punkte auf der Geraden $y=0$.
+
+\subsection{Teil d}
+
+M beschreibt eine Spiegelung an der x-Achse.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aufgabe 6
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{section}{5}
+
+\section{Aufgabe 6}
+\subsection{Teil a}
+
+Berechnen Sie den Schnittpunkt P der beiden Geraden
+$$ 3x + 4y = 5 $$
+$$ 4x + 5y = -6 $$
+in homogenen Koordinaten.
+
+$$ 3x + 4y = 5 $$
+$$ \Leftrightarrow -\frac{3}{5} x - \frac{4}{5} y + 1 = 0 $$
+
+$$ 4x + 5y = -6 $$
+$$ \Leftrightarrow \frac{2}{3} x + \frac{5}{6} y + 1 = 0 $$
+
+Die Geraden werden beschrieben durch die Vektoren 
+$ \begin{pmatrix} -3 \\ -4 \\ 5 \end{pmatrix} $ und 
+$ \begin{pmatrix} 4 \\ 5 \\ 6 \end{pmatrix} $.
+
+Der Schnittpunkt berechnet sich durch das Kreuzprodukt:
+
+$$ P = \begin{pmatrix} -3 \\ -4 \\ 5 \end{pmatrix} 
+\times \begin{pmatrix} 4 \\ 5 \\ 6 \end{pmatrix}
+= \begin{pmatrix} -49 \\ 38 \\ 1 \end{pmatrix} $$
+
+\subsection{Teil b}
+
+Bestimmen Sie die Gleichung der Geraden g durch P und den Punkt 
+$\begin{pmatrix} 3 \\ 2 \\ 6 \end{pmatrix}$.
+
+$$
+g = \begin{pmatrix} 3 \\ 2 \\ 6 \end{pmatrix}
+\times \begin{pmatrix} -49 \\ 38 \\ 1 \end{pmatrix}
+= \begin{pmatrix} -226 \\ -297 \\ 212 \end{pmatrix}
+$$
+
+\subsection{Teil c}
+
+Schneiden Sie g mit der Ferngeraden.
+
+Die Ferngerade ist die Gerade $ \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix} $.
+
+Der Schnitt von g mit der Ferngeraden:
+
+$$
+g = \begin{pmatrix} -226 \\ -297 \\ 212 \end{pmatrix}
+\times \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
+= \begin{pmatrix} -297 \\ 226 \\ 0 \end{pmatrix}
+$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aufgabe 7
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Aufgabe 7}
+
+Bestimmen Sie die Transformationsmatrix für eine Rotation um die Gerade durch
+den Ursprung in Richtung des Vektors
+$$ u = \begin{pmatrix} 5 \\ -2 \\ 3 \end{pmatrix} $$
+um einen Winkel von 30° gegen den Uhrzeigersinn, wenn man vom Ursprung aus in 
+Richtung von $u$ schaut.
+
+\subsection{Teil 1}
+
+Drehe den Vektor $u$ in die yz-Ebene (um die z-Achse)
+
+Der Winkel $\alpha$ zwischen $\begin{pmatrix} 5 \\ -2 \\ 0 \end{pmatrix}$ und 
+der y-Achse ist von -z aus gesehen $\alpha = arctan(\sqrt{5^2+2^2}) = arctan(\sqrt{29})$.
+
+Wir drehen aber von +z aus gegen den Uhrzeigersinn, also
+um $\alpha' = 2 \pi - arctan(\sqrt{29})$.
+
+$$ sin(\alpha) = \frac{5}{\sqrt{29}} $$
+$$ sin(\alpha') = -\frac{5}{\sqrt{29}} $$
+$$ cos(\alpha) = cos(\alpha') = \frac{2}{\sqrt{29}} $$
+
+Die Rotationsmatrix $M_1$ ist daher:
+
+$$
+M_1 = \begin{pmatrix}
+ 2 / \sqrt{29} & 5 / \sqrt{29} & 0 \\
+ -5 / \sqrt{29} & 2 / \sqrt{29} & 0 \\
+ 0 & 0 & 1
+\end{pmatrix}
+$$
+
+Der Vektor wird durch die Rotation abgebildet auf:
+
+$$
+v = \begin{pmatrix}
+ 2 / \sqrt{29} & 5 / \sqrt{29} & 0 \\
+ -5 / \sqrt{29} & 2 / \sqrt{29} & 0 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix} 5 \\ -2 \\ 3 \end{pmatrix}
+=  \begin{pmatrix} 0 \\ -\sqrt{29} \\ 3 \end{pmatrix}
+$$
+
+
+\subsection{Teil 2}
+
+Drehe den Vektor $v$ weiter in die z-Achse (um die x-Achse).
+
+Der Winkel zwischen $v$ und der z-Achse ist von -x aus gesehen
+$ \beta = arctan(\frac{\sqrt{29}}{3}) $.
+Wir drehen also von +x aus gesehen um $\beta' = 2\pi - \beta$.
+
+$$ sin(\beta) = \frac{\sqrt{29}}{\sqrt{38}} $$
+$$ sin(\beta') = -\frac{\sqrt{29}}{\sqrt{38}} $$
+$$ cos(\beta) = cos(\beta') = \frac{3}{\sqrt{38}} $$
+
+Die Rotationsmatrix $M_2$ ist daher:
+
+$$
+M_2 = \begin{pmatrix}
+ 1 & 0 & 0 \\
+ 0 & 3 / \sqrt{38} & \sqrt{29} / \sqrt{38} \\
+ 0 & -\sqrt{29} / \sqrt{38} & 3 / \sqrt{38}
+\end{pmatrix}
+$$
+
+Der Vektor wird durch die Rotation abgebildet auf:
+
+$$
+w = \begin{pmatrix}
+ 1 & 0 & 0 \\
+ 0 & 3 / \sqrt{38} & \sqrt{29} / \sqrt{38} \\
+ 0 & -\sqrt{29} / \sqrt{38} & 3 / \sqrt{38}
+\end{pmatrix}
+\begin{pmatrix} 0 \\ -\sqrt{29} \\ 3 \end{pmatrix}
+=  \begin{pmatrix} 0 \\ 0 \\ \sqrt{38} \end{pmatrix}
+$$
+
+\subsection{Teil 3}
+
+Drehen um die z-Achse: $\gamma = 30°$ vom Ursprung aus gesehen gegen der Uhrzeigersinn.
+D.h. wir drehen um $\gamma' = -30° = 330°$ von +z aus gesehen.
+
+$$ sin(\gamma) = \frac{1}{2} $$
+$$ sin(\gamma') = -\frac{1}{2} $$
+$$ cos(\gamma) = cos(\gamma') = \frac{\sqrt{3}}{2} $$
+
+Die Rotationsmatrix $M_3$ ist daher:
+
+$$
+M_3 = \begin{pmatrix}
+ \sqrt{3} / 2 & -1/2 & 0 \\
+ 1/2 & \sqrt{3} / 2 & 0 \\
+ 0 & 0 & 1
+\end{pmatrix}
+$$
+
+\subsection{Teil 4}
+
+Um die Transformationen aus den Teilen 1 und 2 rückwärts auszuführen werden die Matrizen
+$M_1^{-1}$ und $M_2^{-1}$ benötigt:
+
+$$
+M_1^{-1} = \begin{pmatrix}
+ 2 / \sqrt{29} & -5 / \sqrt{29} & 0 \\
+ 5 / \sqrt{29} & 2 / \sqrt{29} & 0 \\
+ 0 & 0 & 1
+\end{pmatrix}
+$$
+$$
+M_2^{-1} = \begin{pmatrix}
+ 1 & 0 & 0 \\
+ 0 & 3 / \sqrt{38} & -\sqrt{29} / \sqrt{38} \\
+ 0 & \sqrt{29} / \sqrt{38} & 3 / \sqrt{38}
+\end{pmatrix}
+$$
+
+\subsection{Gesamtergebnis}
+Die gesuchte Transformationsmatrix M ist gegeben durch die folgende Verkettung 
+von Transformationen:
+$$ M = M_1^{-1} M_2^{-1} M_3 M_2 M_1 $$
+
+$$ M = M_1^{-1} M_2^{-1} M_3 
+\begin{pmatrix}
+ 1 & 0 & 0 \\
+ 0 & 3 / \sqrt{38} & \sqrt{29} / \sqrt{38} \\
+ 0 & -\sqrt{29} / \sqrt{38} & 3 / \sqrt{38}
+\end{pmatrix}
+\begin{pmatrix}
+ 2 / \sqrt{29} & 5 / \sqrt{29} & 0 \\
+ -5 / \sqrt{29} & 2 / \sqrt{29} & 0 \\
+ 0 & 0 & 1
+\end{pmatrix}
+$$
+
+$$ M = M_1^{-1} M_2^{-1} M_3 
+\begin{pmatrix}
+ 2 / \sqrt{29} & 5 / \sqrt{29} & 0 \\
+ -15\sqrt{29\cdot38} & 6 / \sqrt{29\cdot38} & \sqrt{29} / \sqrt{38} \\
+ 5 / \sqrt{38} & -2 / \sqrt{38} & 3 / \sqrt{38}
+\end{pmatrix}
+$$
+
+$$ M = M_1^{-1} M_2^{-1}
+\begin{pmatrix}
+ \sqrt{3} / 2 & -1/2 & 0 \\
+ 1/2 & \sqrt{3} / 2 & 0 \\
+ 0 & 0 & 1
+\end{pmatrix}
+\begin{pmatrix}
+ 2 / \sqrt{29} & 5 / \sqrt{29} & 0 \\
+ -15\sqrt{29\cdot38} & 6 / \sqrt{29\cdot38} & \sqrt{29} / \sqrt{38} \\
+ 5 / \sqrt{38} & -2 / \sqrt{38} & 3 / \sqrt{38}
+\end{pmatrix}
+$$
+
+$$...$$
+
+$$
+M \approx \begin{pmatrix}
+ 0.95417 &-0.27859 &-0.10934 \\
+ 0.20808 & 0.88013 &-0.42671 \\
+ 0.21511 & 0.38440 & 0.89776
+\end{pmatrix}
+$$
+
+$ M u = u $ durch Octave bestätigt.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Octave test
+% M1 = [2/sqrt(29), 5/sqrt(29), 0; -5/sqrt(29), 2/sqrt(29), 0; 0,0,1]
+% M11 = [2/sqrt(29), -5/sqrt(29), 0; 5/sqrt(29), 2/sqrt(29), 0; 0,0,1]
+% M2 = [1,0,0; 0, 3/sqrt(38), sqrt(29)/sqrt(38); 0, -sqrt(29)/sqrt(38), 3/sqrt(38)]
+% M21 = [1,0,0; 0, 3/sqrt(38), -sqrt(29)/sqrt(38); 0, sqrt(29)/sqrt(38), 3/sqrt(38)]
+% M3 = [sqrt(3) / 2, -1/2, 0; 1/2, sqrt(3)/2, 0; 0,0,1]
+% u = [5;-2;3]
+% M11*M21*M3*M2*M1*u
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aufgabe 8
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Aufgabe 8}
+
+\begin{itemize}
+\item Teil1: 
+	\begin{itemize}
+	\item Berechnen von $sin(\alpha)$ und $cos(\alpha)$ aus den Einträgen der Vektoren mit dem Satz von Pythagoras:
+	je 2 Multiplikationen, eine Addition, eine Wurzel, eine Division.
+	\item Berechnen von v: 9 Multiplikationen und 6 Additionen
+	\end{itemize}
+\item Teil2: analog zu Teil1. Also weitere 13 Multiplikationen, 8 Additionen, 2 Wurzeln, 2 Divisionen
+\item Teil3: in Abhängigkeit vom Rotationswinkel $M_3$ bestimmen: 1 Mal Sinus, 1 Mal Cosinus
+\item Teil4: $M_1^{-1}$ und $M_2^{-1}$ lassen sich durch je zwei Vorzeichenwechsel aus $M_1$ bzw. $M_2$ bestimmen. Zählen hier pro Matrix 4 Additionen für die nicht-trivialen Einträge, also insgesamt 8 Additionen.
+\end{itemize}
+
+Zusammengefasst lässt sich für diese Teile sagen:
+\begin{itemize}
+\item Additionen: 24
+\item Multiplikationen: 26
+\item Divisionen: 4
+\item Wurzeln: 4
+\item Sinus / Cosinus: 1
+\end{itemize}
+
+Dann müssen noch 5 Matrixmultiplikationen durchgeführt werden, um die endgültige
+Transformationsmatrix zu bestimmen.
+Jede Matrix hat die Dimension $3 \times 3$. Jede Matrixmultiplikation
+benötigt $ 9 \cdot 3 $ Multiplikationen und $ 9 \cdot 2 $ Additionen.
+Das ergibt bei 5 Matrixmultiplikationen also 135 Multiplikationen und 90 Additionen.
+Insgesamt dominiert dieser letzte Schritt die Gesamtanzahl von Operationen, jedoch 
+treten bei den Teilen 1 bis 4 noch andere Operationen als Addition und Multiplikation
+auf.
+
+
+
+
+
+
+\end{document}

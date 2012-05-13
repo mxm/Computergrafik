@@ -1,0 +1,390 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper,vmargin={20mm,20mm},hmargin={30mm,25mm}]{geometry}
+
+\usepackage{graphicx}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+
+\begin{document}
+
+
+\parindent 0em%
+\parskip 0.5em%
+\noindent\rule{\textwidth}{1pt}%
+\begin{center}%
+\textbf{Computergrafik SoSe 2012} \\
+\textbf{Übung 2}
+\end{center}%
+{Max Michels, Sebastian Kürten}\\%
+\noindent\rule{\textwidth}{1pt}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aufgabe 10
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{section}{9}
+\section{Aufgabe 10}
+\subsection{Teil a}
+
+\subsubsection{Aufgabenstellung}
+
+Stellen Sie für die Gerade durch die Punkte $(2,3)$ und $(4,5)$ in der Ebene
+eine Geradengleichung der Form
+$$
+ax + by + cw = 0
+$$
+in homogenen Koordinaten $(x,y,w)$ auf.
+
+\subsubsection{Lösung}
+
+Wir bestimmen die Geradengleichung durch Bildung des Kreuzprodukts der beiden Punkte
+in homogenen Koordinaten:
+
+$$
+\begin{pmatrix}
+2 \\ 3 \\ 1
+\end{pmatrix}
+\times
+\begin{pmatrix}
+4 \\ 5 \\ 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+3 - 5 \\ 4 - 2 \\ 10 - 12
+\end{pmatrix}
+=
+\begin{pmatrix}
+-2 \\ 2 \\ -2
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 \\ -1 \\ 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+a \\ b \\ c
+\end{pmatrix}
+$$
+
+Damit ist die Geradengleichung:
+
+$$ x - y + w = 0 $$
+
+\subsection{Teil b}
+
+\subsubsection{Aufgabenstellung}
+
+Die Gleichung
+$$
+x^2 + 2xw  + y^2  - 12 w^2 - 3 wy = 0
+$$
+
+in homogenen Koordinaten $(x,y,w)$ beschreibt einen Kreis in der Ebene.
+Bestimmen Sie seinen Radius und den Mittelpunkt (in kartesischen Koordinaten).
+
+\subsubsection{Lösung}
+
+Die Gleichung wird in die Normalform überführt, in der sich Mittelpunkt und Radius ablesen lassen:
+
+$$
+x^2 + 2xw  + y^2  - 12 w^2 - 3 wy = 0
+$$
+$$
+=
+x^2 + 2xw + w^2     + y^2 -3wy + (\frac{3}{2})^2 w^2 - 12 w^2 - w^2 - (\frac{3}{2})^2 w^2  = 0
+$$
+$$
+= (x+w)^2 + (y-\frac{3}{2}w)^2 - \frac{61}{4} w^2 = 0
+$$
+
+Wenn wir $w=1$ setzen, erhalten wir:
+$$
+= (x+1)^2 + (y-\frac{3}{2})^2 - \frac{61}{4} = 0
+$$
+
+Der Mittelpunkt des Kreises ist daher $(-1, \frac{3}{2})$, der Radius $\frac{\sqrt{61}}{2}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aufgabe 11
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setcounter{section}{10}
+\section{Aufgabe 11}
+\subsection{Aufgabenstellung}
+Bestimmen Sie die Abbildungsmatrix A (in homogenen Koordinaten) für die Zentralprojektion vom Punkt
+$P = (4,1)$ auf die Getade $g: x + 2y + 1 = 0$.
+
+\subsection{Lösung}
+
+Zunächst führen wir eine Translation um $(-4, -1)$ aus, um den Punkt P in den Ursprung zu verschieben.
+Dazu verwenden wir die folgende Matrix:
+
+$$
+B = 
+\begin{pmatrix}
+1 & 0 & -4 \\
+0 & 1 & -1 \\
+0 & 0 & 1 \\
+\end{pmatrix}
+$$
+
+Die Inverse (zum Zurückverschieben nach der Projektion) dieser Matrix ist:
+$$
+B^{-1} = 
+\begin{pmatrix}
+1 & 0 & 4 \\
+0 & 1 & 1 \\
+0 & 0 & 1 \\
+\end{pmatrix}
+$$
+
+Wir brauchen noch eine Rotationsmatrix C, um die Projektionsgerade g auf eine Senkrechte der Form $x = d$ abzubilden.
+Der Abstand d dieser Geraden lässt sich folgendermaßen ausrechnen:
+
+Zunächst bestimmen wir zwei Punkte $a_1$, $a_2$ auf der ursprünglichen Geraden g:
+
+$a_1 = \begin{pmatrix} 1 \\ -1 \\ 1 \end{pmatrix} $,
+$a_2 = \begin{pmatrix} 4 \\ -3 \\ 2 \end{pmatrix} $
+
+Wir verschieben diese mit der Translationsmatrix B:
+
+$a_1^{'} = B \cdot a_1 = \begin{pmatrix} -3 \\ -2 \\ 1 \end{pmatrix} $,
+$a_2^{'} = B \cdot a_2 = \begin{pmatrix} -4 \\ -5 \\ 2 \end{pmatrix} $
+
+Jetzt bestimmen wir die verschobene Gerade $g^{'} = a_1^{'} \times a_2^{'} = 
+\begin{pmatrix} 1 \\ 2 \\ 7 \end{pmatrix} $.
+
+Der Abstand einer Geraden $\begin{pmatrix} a \\ b \\ c \end{pmatrix}$ zum Ursprung ist 
+$\frac{|c|}{\sqrt{a^2 + b^2}}$
+
+In unserem Fall ist also
+
+$$
+d = 
+\frac{|7|}{\sqrt{1^2 + 2^2}}
+= \frac{7}{\sqrt{5}}
+$$
+
+Nun bestimmen wir die Rotationsmatrix. Sie hat die Gestalt:
+
+$$
+C = 
+\begin{pmatrix}
+cos(\alpha) & -sin(\alpha) & 0 \\
+sin(\alpha) & cos(\alpha) & 0 \\
+0 & 0 & 1 \\
+\end{pmatrix}
+$$
+
+Wir wissen, dass die beiden Punkte $a_1^{'}$, $a_2^{'}$ auf Punkte der Geraden $x = \frac{7}{\sqrt{5}} $
+abgebildet werden. Formal wissen wir also:
+
+$$
+C \cdot a_1^{'} 
+= C \cdot \begin{pmatrix} -3 \\ -2 \\ 1 \end{pmatrix}
+= \begin{pmatrix} d \\ * \\ 1 \end{pmatrix}
+= \begin{pmatrix} \frac{7}{\sqrt{5}} \\ * \\ 1 \end{pmatrix}
+$$
+
+und
+
+$$
+C \cdot a_2^{'} 
+= C \cdot \begin{pmatrix} -4 \\ -5 \\ 2 \end{pmatrix}
+= \begin{pmatrix} 2d \\ * \\ 2 \end{pmatrix}
+= \begin{pmatrix} \frac{14}{\sqrt{5}} \\ * \\ 2 \end{pmatrix}
+$$
+
+Daraus folgt:
+
+$$
+-3 cos(\alpha) + 2 sin(\alpha) = \frac{7}{\sqrt{5}}
+$$
+
+sowie 
+
+$$
+-4 cos(\alpha) + 5 sin(\alpha) = \frac{14}{\sqrt{5}}
+$$
+
+woraus sich ableiten lässt, dass 
+$ cos(\alpha) = -\frac{1}{\sqrt{5}} $
+und 
+$ sin(\alpha) = \frac{2}{\sqrt{5}} $
+ist.
+
+Damit ist die gesuchte Rotationsmatrix
+
+$$
+C = 
+\begin{pmatrix}
+-\frac{1}{\sqrt{5}} & \frac{2}{\sqrt{5}} & 0 \\[6pt]
+-\frac{2}{\sqrt{5}} & -\frac{1}{\sqrt{5}} & 0 \\[6pt]
+0 & 0 & 1 \\
+\end{pmatrix}
+$$
+
+Die Inverse dieser Matrix (zum Zurückdrehen nach der Projektion):
+
+$$
+C^{-1} = 
+\begin{pmatrix}
+-\frac{1}{\sqrt{5}} & \frac{2}{\sqrt{5}} & 0 \\[6pt]
+-\frac{2}{\sqrt{5}} & -\frac{1}{\sqrt{5}} & 0 \\[6pt]
+0 & 0 & 1 \\
+\end{pmatrix}
+$$
+
+Die Projetionsmatrix für die Projektion auf die Gerade $x= d = \frac{7}{\sqrt{5}}$
+
+$$
+M = 
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+1 / d & 0 & 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+\frac{\sqrt{5}}{7} & 0 & 0
+\end{pmatrix}
+$$
+
+Die gesucht Abbildungsmatrix A, die die Abbildung im ursprünglichen Koordinatensystem
+angibt, ist also:
+
+$$
+A = B^{-1} \cdot C^{-1} \cdot M \cdot C \cdot B = 
+\begin{pmatrix}                                                                                                                                                                                         
+3 / 7 & -8/7 & -4/7 \\
+-1 / 7 & 5/7 & -1/7 \\
+-1 / 7 & -2/7 & 6/7
+\end{pmatrix}
+$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aufgabe 12
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{section}{11}
+\section{Aufgabe 12}
+\subsection{Teil a}
+\subsubsection{Aufgabenstellung}
+
+Eine Kamera steht im Punkt
+$ \vec{p} = \begin{pmatrix} 4 \\ 7 \\ 3 \end{pmatrix} $ 
+und blickt in Richtung auf den Punkt 
+$ \vec{q} = \begin{pmatrix} 7 \\ 3 \\ 4 \end{pmatrix} $.
+Bestimmen Sie das entsprechende rechtwinklige Augenkoordinatensystem so, dass die Kamera aufrecht steht.
+
+\subsubsection{Lösung}
+
+Die Kamera ist am Punkt $\vec{p}$ und blickt in Richtung $\vec{q}$, d.h. die Blickrichtung ist
+$-\tilde{n} = \vec{q} - \vec{p}$:
+
+$$
+\tilde{n} = \vec{p} - \vec{q}
+= \begin{pmatrix} 4 \\ 7 \\ 3 \end{pmatrix}
+- \begin{pmatrix} 7 \\ 3 \\ 4 \end{pmatrix}
+= \begin{pmatrix} -3 \\ 4 \\ -1 \end{pmatrix}
+$$
+
+$\tilde{u}$ berechnet sich so:
+
+$$
+\tilde{u} = \tilde{n}
+\times \begin{pmatrix} 0 \\ 0 \\ -1 \end{pmatrix}
+= \begin{pmatrix} -3 \\ 4 \\ -1 \end{pmatrix}
+\times \begin{pmatrix} 0 \\ 0 \\ -1 \end{pmatrix}
+= \begin{pmatrix} -4 \\ -3 \\ 0 \end{pmatrix}
+$$
+
+$\tilde{n}$ und $\tilde{u}$ werden normiert:
+
+$$
+\vec{n} = \frac{\tilde{n}}{\|\tilde{n}\|}
+= \begin{pmatrix} -3 / \sqrt{26} \\ 4 / \sqrt{26} \\ -1 / \sqrt{26} \end{pmatrix}
+$$
+
+$$
+\vec{u} = \frac{\tilde{u}}{\|\tilde{u}\|}
+= \begin{pmatrix} -4 / 5 \\ -3 / 5 \\ 0 \end{pmatrix}
+$$
+
+$\vec{v}$ berechnen:
+
+$$
+\vec{v}
+= \vec{n} \times \vec{u}
+= \begin{pmatrix} -3 / \sqrt{26} \\ 4 / \sqrt{26} \\ -1 / \sqrt{26} \end{pmatrix}
+\times \begin{pmatrix} -4 / 5 \\ -3 / 5 \\ 0 \end{pmatrix}
+= \begin{pmatrix} -3 / 5 \sqrt{26} \\ 4 / 5 \sqrt{26} \\ 5 / \sqrt{26} \end{pmatrix}
+$$
+
+\subsection{Teil b}
+
+\subsubsection{Aufgabenstellung}
+Bestimmen Sie die 4 $\times$ 4-Transformationsmatrix zur Umrechnung von Weltkoordinaten in Augenkoordinaten.
+
+\subsubsection{Lösung}
+
+Jetzt können wir die Teile der Transformationsmatrix bestimmen:
+$$
+A
+= \begin{pmatrix} 
+-4 / 5 & -3 / (5 \sqrt{26}) & -3 / \sqrt{26} \\ 
+-3 / 5 & 4 / (5 \sqrt{26}) & 4 / \sqrt{26} \\ 
+ 0 & 5 / \sqrt{26} &  -1 / \sqrt{26} 
+\end{pmatrix}
+$$
+
+$$
+A^T
+= \begin{pmatrix} -4 / 5 & -3 / 5 & 0 \\
+-3 / (5 \sqrt{26}) & 4 / (5 \sqrt{26}) & 5 / \sqrt{26} \\
+ -3 / \sqrt{26} & 4 / \sqrt{26} & -1 / \sqrt{26} 
+\end{pmatrix}
+$$
+
+$$
+c =
+-A^T \cdot \begin{pmatrix} x_{Auge} \\ y_{Auge} \\ z_{Auge} \end{pmatrix}
+=
+-A^T \cdot \begin{pmatrix} 4 \\ 7 \\ 3 \end{pmatrix}
+=
+\begin{pmatrix} 37 / 5 \\ -91 / (5 \sqrt{26}) \\ -13 / \sqrt{26} \end{pmatrix}
+$$
+
+$$
+M_{AW} = \begin{pmatrix} 
+A^T & c \\
+0 & 1 
+\end{pmatrix}
+= \begin{pmatrix} 
+-4 / 5 & -3 / 5 & 0 & 37 / 5 \\ 
+-3 / (5 \sqrt{26}) & 4 / (5 \sqrt{26}) & 5 / \sqrt{26} & -91 / (5 \sqrt{26}) \\
+-3 / \sqrt{26} & 4 / \sqrt{26} & -1 / \sqrt{26} & -13 / \sqrt{26} \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aufgabe 13
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{section}{12}
+\section{Aufgabe 13}
+\subsection{Teil a}
+
+Bei einer Scherung in x-Richtung sind alle Punkte auf der x-Achse Fixpunkte.
+Bei einer Scherung in y-Richtung sind alle Punkte auf der y-Achse Fixpunkte.
+
+\subsection{Teil b}
+Bei einer Scherung in x-Richtung sind alle Geraden parallel zur x-Achse Fixgeraden.
+Bei einer Scherung in y-Richtung sind alle Geraden parallel zur y-Achse Fixgeraden.
+
+\subsection{Teil c}
+Siehe nächste Seite
+
+\end{document}

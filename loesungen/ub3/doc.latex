@@ -1,0 +1,466 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper,vmargin={20mm,20mm},hmargin={30mm,25mm}]{geometry}
+
+\usepackage{graphicx}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+
+\begin{document}
+
+
+\parindent 0em%
+\parskip 0.5em%
+\noindent\rule{\textwidth}{1pt}%
+\begin{center}%
+\textbf{Computergrafik SoSe 2012} \\
+\textbf{Übung 3}
+\end{center}%
+{Max Michels, Sebastian Kürten}\\%
+\noindent\rule{\textwidth}{1pt}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aufgabe 16
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{section}{15}
+\section{Aufgabe 16}
+
+\subsection{Weltkoordinaten $\rightarrow$ Augkoordinaten}
+
+Die Kamera steht im Punkt
+$ \vec{p} = \begin{pmatrix} 4 \\ 7 \\ 3 \end{pmatrix} $ 
+und blickt in Richtung auf den Punkt 
+$ \vec{q} = \begin{pmatrix} 7 \\ 3 \\ 4 \end{pmatrix} $.
+
+Umrechnung in Augkoordinaten wie in Aufgabe 12:
+
+$$
+\vec{n} = 
+\begin{pmatrix} -3 / \sqrt{26} \\ 4 / \sqrt{26} \\ -1 / \sqrt{26} \end{pmatrix}
+$$
+
+$$
+\vec{u} = 
+\begin{pmatrix} -4 / 5 \\ -3 / 5 \\ 0 \end{pmatrix}
+$$
+
+$$
+\vec{v} =
+\begin{pmatrix} -3 / 5 \sqrt{26} \\ 4 / 5 \sqrt{26} \\ 5 / \sqrt{26} \end{pmatrix}
+$$
+
+$$
+M_{AW} = 
+\begin{pmatrix} 
+-4 / 5 & -3 / 5 & 0 & 37 / 5 \\ 
+-3 / (5 \sqrt{26}) & 4 / (5 \sqrt{26}) & 5 / \sqrt{26} & -91 / (5 \sqrt{26}) \\
+-3 / \sqrt{26} & 4 / \sqrt{26} & -1 / \sqrt{26} & -13 / \sqrt{26} \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+$$
+
+
+\subsection{Objektkoordinaten $\rightarrow$ Weltkoordinaten}
+
+Wir gehen davon aus, dass der Würfel um seine eigene Achse rotiert wird, nicht um die Z-Achse in Weltkoordinaten.
+
+Die Objektkoordinaten des Würfels lassen sich demnach in Weltkoordinaten umrechnen, indem
+sie an ihrer Position in Objektkoorinaten im Ursprung gedreht werden und anschließend um 
+$ \begin{pmatrix} 7 \\ 3 \\ 4 \end{pmatrix} $ verschoben werden.
+
+Drehmatrix in homogenen Koordinaten:
+
+$$
+A_r =
+\begin{pmatrix}
+cos(60°) & -sin(60°) & 0 & 0 \\
+sin(60°) & cos(60°) & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+\end{pmatrix} 
+=
+\begin{pmatrix}
+0.5 & -sin(60°) & 0 & 0 \\
+sin(60°) & 0.5 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+\end{pmatrix} 
+$$
+
+Verschiebung in homogenen Koordinaten:
+
+$$
+A_t =
+\begin{pmatrix}
+1 & 0 & 0 & 7\\
+0 & 1 & 0 & 3\\
+0 & 0 & 1 & 4\\
+0 & 0 & 0 & 1 \\
+\end{pmatrix} 
+$$
+
+Drehung + Verschiebung in einem:
+
+$$
+A_{rt} = A_t \cdot A_r =
+\begin{pmatrix}
+1 & 0 & 0 & 7\\
+0 & 1 & 0 & 3\\
+0 & 0 & 1 & 4\\
+0 & 0 & 0 & 1 \\
+\end{pmatrix} 
+\cdot
+\begin{pmatrix}
+0.5 & -sin(60°) & 0 & 0 \\
+sin(60°) & 0.5 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+\end{pmatrix} 
+$$
+$$
+=
+\begin{pmatrix}
+\frac{1}{2} & -sin(60°) & 0 & 7 \\
+sin(60°) & \frac{1}{2} & 0 & 3 \\
+0 & 0 & 1 & 4 \\
+0 & 0 & 0 & 1 \\
+\end{pmatrix} 
+$$
+
+\subsection{Weltkoordinaten $\rightarrow$ Augkoordinaten}
+
+Die Weltkoordinaten werden mit $M_{AW}$ in Augkoordinaten umgerechnet. Die 
+Matrix, welche Objektkoordinaten des Würfels in Augkoordinaten umrechnet ist:
+
+$$
+A_{AW} =
+M_{AW} \cdot A_{rt}
+$$
+$$
+=
+\begin{pmatrix} 
+-4 / 5 & -3 / 5 & 0 & 37 / 5 \\ 
+-3 / (5 \sqrt{26}) & 4 / (5 \sqrt{26}) & 5 / \sqrt{26} & -91 / (5 \sqrt{26}) \\
+-3 / \sqrt{26} & 4 / \sqrt{26} & -1 / \sqrt{26} & -13 / \sqrt{26} \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\cdot
+\begin{pmatrix} 
+\frac{1}{2} & -sin(60°) & 0 & 7 \\
+sin(60°) & \frac{1}{2} & 0 & 3 \\
+0 & 0 & 1 & 4 \\
+0 & 0 & 0 & 1 \\
+\end{pmatrix} 
+$$
+$$ =
+\begin{pmatrix} 
+-\frac{2 + 3 sin(60°)}{5} & \frac{8 sin(60°) - 3}{10} & 0 & 0 \\
+\frac{-3 + 8 sin(60°)}{10 \sqrt{26}} & \frac{3 sin(60°) + 2}{5 \sqrt{26}} & 
+\frac{5}{\sqrt{26}} & 0 \\
+\frac{-3+8 sin(60°)}{2\sqrt{26}} & \frac{3 sin(60°) + 2}{\sqrt{26}} & 
+\frac{-1}{\sqrt{26}} & -\sqrt{26} \\
+0 & 0 & 0 & 1 \\
+\end{pmatrix} 
+$$
+
+\subsection{Augkoordinaten $\rightarrow$ Normalisierte Gerätekoordinaten}
+
+Der horizontale Öffnungswinkel der Kamera ist 30° und die Kamera ist 6 Einheiten
+von der Projektionsfläche entfernt. Die Verbindungslinie von der Kamera zum Hauptpunkt
+und $u_{rechts}$ spannen ein rechtwinkliges Dreieck mit einem Winkel von 15° bei der 
+Kamera auf, sodass sich $u_{rechts}$ bestimmen lässt:
+
+$$
+u_{rechts} =
+6 \cdot tan 15° \approx 1.61
+$$
+
+Damit ist auch $u_{links}$ bestimmt als $u_{links} = -u_{rechts} = -6 \cdot tan 15°$
+
+Durch die Auflösung des Bildschirms ist das Verhältnis zwischen Breite und Höhe der Leinwand
+bestimmt als 3 zu 2 und damit auch das Verhältnis von $u_{rechts}$ zu $v_{oben}$.
+Es gilt 
+$$v_{oben} = \frac{2}{3} u_{rechts} = 4 \cdot tan 15°$$
+und 
+$$v_{unten} = -v_{oben} = -4 \cdot tan 15°$$
+
+Wir können jetzt also die Matrix zur Umrechnung von Augkoordinaten in Gerätekoordinaten 
+angeben:
+
+$$ M_{NDC} =
+\begin{pmatrix}
+\frac{2n_{nah}}{u_{rechts}-u_{links}} & 0 & \frac{u_{rechts}+u_{links}}{u_{rechts}-u_{links}} & 0 \\
+0 & \frac{2n_{nah}}{v_{oben}-v_{unten}} & \frac{v_{oben}+v_{unten}}{v_{oben}-v_{unten}} & 0 \\
+0 & 0 & -\frac{n_{nah}+n_{fern}}{n_{fern}-n_{nah}} & -\frac{2n_{nah}n_{fern}}{n_{fern}-n_{nah}} \\
+0 & 0 & -1 & 0 \\
+\end{pmatrix} 
+$$
+
+$$ =
+\begin{pmatrix}
+\frac{1}{\tan(15°)} & 0 & 0 & 0 \\
+0 & \frac{3}{2 \tan(15°)} & 0 & 0 \\
+0 & 0 & -\frac{13}{7} & -\frac{120}{7} \\
+0 & 0 & -1 & 0 \\
+\end{pmatrix} 
+$$
+
+\subsection{Objektkoordinaten $\rightarrow$ Normalisierte Gerätekoordinaten}
+
+Durch Hintereinanderausführung von $A_{AW}$ und $M_{NDC}$ können wir Objektkoordinaten
+in Normalisierte Gerätekoordinaten überführen. Wir erhalten eine Gesamtmatrix für diese
+Operation:
+
+$$A_{NDC} = M_{NDC} \cdot A_{AW}
+$$
+$$ =
+\begin{pmatrix}
+\frac{1}{\tan(15°)} & 0 & 0 & 0 \\
+0 & \frac{3}{2 \tan(15°)} & 0 & 0 \\
+0 & 0 & -\frac{13}{7} & -\frac{120}{7} \\
+0 & 0 & -1 & 0 \\
+\end{pmatrix} 
+\cdot
+\begin{pmatrix} 
+-\frac{2 + 3 sin(60°)}{5} & \frac{8 sin(60°) - 3}{10} & 0 & 0 \\
+\frac{-3 + 8 sin(60°)}{10 \sqrt{26}} & \frac{3 sin(60°) + 2}{5 \sqrt{26}} & 
+\frac{5}{\sqrt{26}} & 0 \\
+\frac{-3+8 sin(60°)}{2\sqrt{26}} & \frac{3 sin(60°) + 2}{\sqrt{26}} & 
+\frac{-1}{\sqrt{26}} & -\sqrt{26} \\
+0 & 0 & 0 & 1 \\
+\end{pmatrix} 
+$$
+$$
+=
+\begin{pmatrix} 
+-\frac{2 + 3 sin(60°)}{5\tan(15°)} & \frac{8 sin(60°) - 3}{10\tan(15°)} & 0 & 0 \\
+\frac{-9 + 24 sin(60°)}{20 \sqrt{26}\tan(15°)} & \frac{9 sin(60°) + 6}{10 \sqrt{26}\tan(15°)} & 
+\frac{15}{2\sqrt{26}\tan(15°)} & 0 \\
+\frac{39-104 sin(60°)}{14\sqrt{26}} & \frac{-39 sin(60°) - 26}{7\sqrt{26}} & 
+\frac{13}{7\sqrt{26}} & \frac{13\sqrt{26}-120}{7} \\
+\frac{3-8 sin(60°)}{2\sqrt{26}} & \frac{-3 sin(60°) - 2}{\sqrt{26}} & 
+\frac{1}{\sqrt{26}} & \sqrt{26} \\
+\end{pmatrix} 
+$$
+
+\subsection{Berechnung der Gerätekoordinaten des Würfels}
+
+Der Würfel hat in Objektkoordinaten die Koordinaten
+
+$$
+b_i = 
+\begin{pmatrix}
+\pm1 \\
+\pm1\\
+\pm1\\
+1
+\end{pmatrix}
+$$
+
+Die jeweilige Gerätekoordinate ist:
+
+$$ c_i = A_{NDC} \cdot b_i $$
+
+%\begin{pmatrix}
+%\frac{-4+6\sin(60°)+	8\sin(60°)-3}{10 \tan(15°)} \\
+%\frac{-9+24\sin(60°)+	18\sin(60°)+12+			150}{20\sqrt{26}\tan(15°)} \\
+%\frac{39-104\sin(60°)+	78\sin(60°)-52+			26+		676-240\sqrt{26}}{14\sqrt{26}} \\
+%\frac{3-8\sin{60°)-	6\sin{60°}-4+			2+		52}}{2\sqrt{26}}
+%\end{pmatrix}
+
+$$
+c_1
+= A_{NDC} \cdot 
+\begin{pmatrix}
+1 \\
+1 \\
+1 \\
+1
+\end{pmatrix}
+ =
+\begin{pmatrix}
+\frac{-7+14\sin(60°)	}{10 \tan(15°)} \\
+\frac{42\sin(60°)+	153}{20\sqrt{26}\tan(15°)} \\
+\frac{689-240\sqrt{26}-26\sin(60°)}{14\sqrt{26}} \\
+\frac{53-14\sin{(60°)}}{2\sqrt{26}}
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+0.477 \\
+0.267 \\
+-1.947 \\
+1
+\end{pmatrix}
+$$
+
+$$
+c_2 = A_{NDC} \cdot 
+\begin{pmatrix}
+1 \\
+1 \\
+-1 \\
+1
+\end{pmatrix}
+ =
+\begin{pmatrix}
+\frac{-7+14\sin(60°)	}{10 \tan(15°)} \\
+\frac{42\sin(60°)-	147}{20\sqrt{26}\tan(15°)} \\
+\frac{637-240\sqrt{26}-26\sin(60°)}{14\sqrt{26}} \\
+\frac{49-14\sin{(60°)}}{2\sqrt{26}}
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+0.529 \\
+-1.12 \\
+-2.36 \\
+1
+\end{pmatrix}
+$$
+
+$$
+c_3 = A_{NDC} \cdot 
+\begin{pmatrix}
+ \\
+-1 \\
+1 \\
+1
+\end{pmatrix}
+ =
+\begin{pmatrix}
+\frac{-1-2\sin(60°)}{10 \tan(15°)} \\
+\frac{129+6\sin(60°)}{20\sqrt{26}\tan(15°)} \\
+\frac{793-240\sqrt{26}-182\sin(60°)}{14\sqrt{26}} \\
+\frac{61-2\sin{(60°)}}{2\sqrt{26}}
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+-0.175 \\
+0.845 \\
+-5.293 \\
+1
+\end{pmatrix}
+$$
+
+$$
+c_4 = A_{NDC} \cdot 
+\begin{pmatrix}
+1 \\
+-1 \\
+-1 \\
+1
+\end{pmatrix}
+ =
+\begin{pmatrix}
+\frac{-1-2\sin(60°)}{10 \tan(15°)} \\
+\frac{-171+6\sin(60°)}{20\sqrt{26}\tan(15°)} \\
+\frac{741-240\sqrt{26}-182\sin(60°)}{14\sqrt{26}} \\
+\frac{57-2\sin{(60°)}}{2\sqrt{26}}
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+-0.188 \\
+-1.12 \\
+-6.17 \\
+1
+\end{pmatrix}
+$$
+
+$$
+c_5 = A_{NDC} \cdot 
+\begin{pmatrix}
+-1 \\
+1 \\
+1 \\
+1
+\end{pmatrix}
+ =
+\begin{pmatrix}
+\frac{1+2\sin(60°)}{10 \tan(15°)} \\
+\frac{171-6\sin(60°)}{20\sqrt{26}\tan(15°)} \\
+\frac{610+240\sqrt{26}+182\sin(60°)}{14\sqrt{26}} \\
+\frac{47+2\sin{(60°)}}{2\sqrt{26}}
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+0.213 \\
+1.270 \\
+21.787 \\
+1
+\end{pmatrix}
+$$
+
+$$
+c_6 = A_{NDC} \cdot 
+\begin{pmatrix}
+-1 \\
+1 \\
+-1 \\
+1
+\end{pmatrix}
+ =
+\begin{pmatrix}
+\frac{1+2\sin(60°)}{10 \tan(15°)} \\
+\frac{129-6\sin(60°)}{20\sqrt{26}\tan(15°)} \\
+\frac{558+240\sqrt{26}+182\sin(60°)}{14\sqrt{26}} \\
+\frac{43+2\sin{(60°)}}{2\sqrt{26}}
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+0.232 \\
+1.033 \\
+23.115 \\
+1
+\end{pmatrix}
+$$
+
+$$
+c_7 = A_{NDC} \cdot 
+\begin{pmatrix}
+-1 \\
+-1 \\
+1 \\
+1
+\end{pmatrix}
+ =
+\begin{pmatrix}
+\frac{7-14\sin(60°)}{10 \tan(15°)} \\
+\frac{147-42\sin(60°)}{20\sqrt{26}\tan(15°)} \\
+\frac{715-240\sqrt{26}+26\sin(60°)}{14\sqrt{26}} \\
+\frac{55+14\sin{(60°)}}{2\sqrt{26}}
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+-0.291 \\
+0.615 \\
+-3.86 \\
+1
+\end{pmatrix}
+$$
+
+$$
+c_8 = A_{NDC} \cdot 
+\begin{pmatrix}
+-1 \\
+-1 \\
+-1 \\
+1
+\end{pmatrix}
+ =
+\begin{pmatrix}
+\frac{7-14\sin(60°)}{10 \tan(15°)} \\
+\frac{-153-42\sin(60°)}{20\sqrt{26}\tan(15°)} \\
+\frac{663-240\sqrt{26}+26\sin(60°)}{14\sqrt{26}} \\
+\frac{51+14\sin{(60°)}}{2\sqrt{26}}
+\end{pmatrix}
+\approx
+\begin{pmatrix}
+-0.309 \\
+-1.119 \\
+-4.546 \\
+1
+\end{pmatrix}
+$$
+
+Diesen Berechnungen zufolge liegen alle Punkte des Würfels außerhalb des Sichtbarkeitsstumpfs.
+
+\end{document}
