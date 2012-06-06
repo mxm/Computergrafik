@@ -1,0 +1,236 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4paper,vmargin={20mm,20mm},hmargin={30mm,25mm}]{geometry}
+
+\usepackage{graphicx}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+
+\begin{document}
+
+
+\parindent 0em%
+\parskip 0.5em%
+\noindent\rule{\textwidth}{1pt}%
+\begin{center}%
+\textbf{Computergrafik SoSe 2012} \\
+\textbf{Übung 6}
+\end{center}%
+{Max Michels, Sebastian Kürten}\\%
+\noindent\rule{\textwidth}{1pt}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Aufgabe 16
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{section}{23}
+\section{Aufgabe 24}
+
+Die Augkoordinaten werden mit der folgenden Matrix in normalisierte
+Gerätekoordinaten transformiert:
+
+$$ 
+M_{NDC} =
+\begin{pmatrix}
+\frac{2n_{nah}}{u_{rechts}-u_{links}} & 0 & \frac{u_{rechts}+u_{links}}{u_{rechts}-u_{links}} & 0 \\
+0 & \frac{2n_{nah}}{v_{oben}-v_{unten}} & \frac{v_{oben}+v_{unten}}{v_{oben}-v_{unten}} & 0 \\
+0 & 0 & -\frac{n_{nah}+n_{fern}}{n_{fern}-n_{nah}} & -\frac{2n_{nah}n_{fern}}{n_{fern}-n_{nah}} \\
+0 & 0 & -1 & 0 \\
+\end{pmatrix} 
+$$
+
+Ein beliebiger Vektor in homogenen Augkoordinaten, bei dem uns die u- und
+v-Komponente nicht interessieren, wird also folgendermaßen abgebildet:
+
+$$
+\begin{pmatrix}
+* \\ * \\ n \\ 1
+\end{pmatrix}
+\mapsto
+A_{NDC} \cdot 
+\begin{pmatrix}
+* \\ * \\ n \\ 1
+\end{pmatrix}
+$$
+
+$$ 
+=
+\begin{pmatrix}
+* \\ * \\
+-n \frac{n_{nah}+n_{fern}}{n_{fern}-n_{nah}} -\frac{2n_{nah}n_{fern}}{n_{fern}-n_{nah}} \\
+-n \\
+\end{pmatrix} 
+$$
+
+$$ 
+=
+\begin{pmatrix}
+* \\ * \\
+\frac{n_{nah}+n_{fern}}{n_{fern}-n_{nah}} +\frac{2n_{nah}n_{fern}}{(n_{fern}-n_{nah})n} \\
+1 \\
+\end{pmatrix} 
+$$
+
+Also gilt für die z-Koordinate in NDC:
+
+$$
+z = \frac{n_{nah}+n_{fern}}{n_{fern}-n_{nah}} +\frac{2n_{nah}n_{fern}}{(n_{fern}-n_{nah})n}
+$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% a
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Teil a}
+
+Es gilt $n_{nah} = 1m$ und $n_{fern} = 2m$, also:
+
+$$
+z = 3 + \frac{4m}{n}
+$$
+
+Setzen wir $n_1 = -n_{nah}$ ein, so erhalten wird (wie erwartet, weil so
+wurde $M_{NDC}$ definiert) für $z_1$ den Wert -1.
+
+Wenn wir $n_2 = -(n_{nah} + \epsilon)$ einsetzen:
+
+$$
+z_2
+= 3 + \frac{4m}{-(n_{nah} + \epsilon)}
+= 3 + \frac{4m}{-(1m + \epsilon)}
+$$
+
+Wir wissen, dass für ein $\epsilon > 0$: $z_2 < z_1$ ist und wollen nun, 
+dass der Abstand zwischen $z_1$ und $z_2$ eine bestimmte 
+Mindestgröße $\delta$ hat, also, da $z_1 < 0$:
+
+$$
+z_2 - z_1 \ge \delta
+$$
+
+$$
+\Leftrightarrow 4 + \frac{4m}{-(1m + \epsilon)} \ge \delta
+$$
+
+da $-(1m + \epsilon) < 0$:
+
+$$
+\Leftrightarrow -(1m + \epsilon) 4 + 4m \le -(1m + \epsilon) \delta
+$$
+
+$$
+\Leftrightarrow -4 \epsilon \le -\delta m - \delta \epsilon
+\Leftrightarrow (4 -\delta) \epsilon \ge \delta m
+$$
+
+$$
+\Leftrightarrow \epsilon \ge \frac{\delta m}{4-\delta}
+$$
+
+Wenn wir 15 Bits für die Nachkommastellen zur Verfügung haben, so ist der
+Wert, denn wir mit dem kleinstwertigen Bit darstellen können $2^{-15}$.
+Also ist in diesem Fall $\delta = 2^{-15}$. Damit ist:
+
+$$
+\Leftrightarrow \epsilon \ge \frac{2^{-15}}{4-2^{-15}} m = 7.63 \mu m
+$$
+
+Für 31 Bits ist $\delta = 2^{-31}$ und:
+
+$$
+\Leftrightarrow \epsilon \ge \frac{2^{-31}}{4-2^{-31}} m = 116 pm
+$$
+
+Die zwei Objekte müssen also mindestens einen Abstand von $7,63 \mu m$ bzw.
+$116 pm$ haben, damit man sie im Tiefenpuffer unterscheiden kann.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% b
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Teil b}
+
+Da $n_1 = n_{fern}$ ist, muss $z_1 = 1$ sein.
+
+$$
+z_2
+= 3 + \frac{4m}{-(n_{fern} - \epsilon)}
+= 3 - \frac{4m}{2m - \epsilon}
+$$
+
+Da diesmal $z_1 > z_2$ ist, wissen wir dass $z_1 - z_2 \ge \delta$ gilt.
+
+Eingesetzt und umgeformt ergiebt sich hier:
+
+$$
+\epsilon \ge \frac{2\delta}{2-\delta} m
+$$
+
+Für $\delta = 2^{-15}$ bzw. $\delta = 2^{-31}$ erhalten wir
+$\epsilon \ge 30,5 \mu m$ bzw. $\epsilon \ge 466 pm$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% c
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Teil c}
+
+Es gilt $n_{nah} = 1m$ und $n_{fern} = 100m$, also:
+
+$$
+z = \frac{101}{99} + \frac{200m}{99n}
+$$
+
+Wieder: $z_1 = -1$, sowie:
+
+$$
+z_2 = \frac{101}{99} + \frac{200m}{99 (-(n_{nah} + \epsilon))}
+$$
+
+$$
+= \frac{101}{99} + \frac{200m}{99 (-(1m + \epsilon))}
+$$
+
+$$
+= \frac{101}{99} + \frac{200m}{-99m - 99\epsilon}
+$$
+
+Es gilt wieder:
+
+$$
+z_2 - z_1 \ge \delta
+$$
+
+woraus sich herleiten lässt:
+
+$$
+\epsilon \ge \frac{99\delta}{200 - 99\delta} m
+$$
+
+Für $\delta = 2^{-15}$ bzw. $\delta = 2^{-31}$ erhalten wir
+$\epsilon \ge 15,1 \mu m$ bzw. $\epsilon \ge 231 pm$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% d
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Teil d}
+
+$$
+z_2 = \frac{101}{99} + \frac{200m}{99 (-(n_{fern} - \epsilon))}
+$$
+
+Es ergibt sich analog:
+
+$$
+\epsilon \ge \frac{9900\delta}{2+99\delta} m
+$$
+
+Für $\delta = 2^{-15}$ bzw. $\delta = 2^{-31}$ erhalten wir
+$\epsilon \ge 15,1 cm$ bzw. $\epsilon \ge 2,31 \mu m$.
+
+\section{Aufgabe 25}
+
+siehe Email
+
+\end{document}
